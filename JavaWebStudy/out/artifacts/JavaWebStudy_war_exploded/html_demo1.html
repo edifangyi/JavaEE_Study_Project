@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo</title>
+    <!--<link rel="stylesheet" href="css/css_dome.css"/>-->
+    <!--<script type="text/javascript" src="js/js_dmoe.js"></script>-->
+    <script type="text/javascript">
+        function changeCode() {
+            var img = document.getElementsByTagName("img")[0];
+            // img.setAttribute("src","/httpServletResponseDemo2");//XML Dom语法
+            img.src = "/httpServletResponseDemo2?time=" + new Date().getTime();
+        }
+    </script>
+</head>
+<body>
+
+
+<div>
+    <form action="#" method="post">
+        <p>Hello World</p>
+
+        用户名：<input type="text" name="userName"><br/>
+        密码：<input type="password" name="pwd"><br/>
+        验证码：<input type="text" name="code"><br/>
+        <img src="/httpServletResponseDemo2" onclick="changeCode()"><br/>
+        <a href="javascript:changeCode()">看不清，点击换新</a>
+        <input type="submit" value="登陆">
+    </form>
+</div>
+</body>
+</html>
