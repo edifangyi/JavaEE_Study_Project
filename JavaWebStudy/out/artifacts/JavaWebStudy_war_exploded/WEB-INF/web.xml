@@ -16,6 +16,11 @@
         <url-pattern>/servletDemo1</url-pattern>
     </servlet-mapping>
 
+    <session-config>
+        <!--设置session的有效时间，单位是分钟-->
+        <session-timeout>1</session-timeout>
+    </session-config>
+
     <!--//////////////////////////////////-->
 
     <servlet>
@@ -247,10 +252,10 @@
     <servlet>
         <servlet-name>httpServletResponseDemo2</servlet-name>
         <servlet-class>com.fangyi.httpServletResponse.HttpServletResponseDemo2</servlet-class>
-        <init-param>
-            <param-name>encoding</param-name>
-            <param-value>UTF-8</param-value>
-        </init-param>
+        <!--<init-param>-->
+            <!--<param-name>encoding</param-name>-->
+            <!--<param-value>UTF-8</param-value>-->
+        <!--</init-param>-->
 
     </servlet>
     <servlet-mapping>
@@ -356,8 +361,214 @@
 
     <!--//////////////////////////////////-->
 
+
+    <servlet>
+        <servlet-name>cookieDemo1</servlet-name>
+        <servlet-class>com.fangyi.cookie.CookieDemo1</servlet-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>cookieDemo1</servlet-name>
+        <url-pattern>/cookieDemo1</url-pattern>
+    </servlet-mapping>
+
+    <!--//////////////////////////////////-->
+
+    <servlet>
+        <servlet-name>cookieDemo2</servlet-name>
+        <servlet-class>com.fangyi.cookie.CookieDemo2</servlet-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>cookieDemo2</servlet-name>
+        <url-pattern>/cookieDemo2</url-pattern>
+    </servlet-mapping>
+
+    <!--//////////////////////////////////-->
+
+    <servlet>
+        <servlet-name>loginServletDome1</servlet-name>
+        <servlet-class>com.fangyi.cookie.LoginServletDome1</servlet-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>loginServletDome1</servlet-name>
+        <url-pattern>/loginServletDome1</url-pattern>
+    </servlet-mapping>
+
+    <!--//////////////////////////////////-->
+
+    <servlet>
+        <servlet-name>loginServletDome2</servlet-name>
+        <servlet-class>com.fangyi.cookie.LoginServletDome2</servlet-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>loginServletDome2</servlet-name>
+        <url-pattern>/loginServletDome2</url-pattern>
+    </servlet-mapping>
+
+    <!--//////////////////////////////////-->
+
+    <servlet>
+        <servlet-name>historyShowAllBookServlet1</servlet-name>
+        <servlet-class>com.fangyi.cookie.historyDemo1.HistoryShowAllBookServlet</servlet-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>historyShowAllBookServlet1</servlet-name>
+        <url-pattern>/historyDemo1/historyShowAllBookServlet</url-pattern>
+    </servlet-mapping>
+
+    <!--//////////////////////////////////-->
+
+    <servlet>
+        <servlet-name>historyShowBookDetail</servlet-name>
+        <servlet-class>com.fangyi.cookie.historyDemo1.HistoryShowBookDetail</servlet-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>historyShowBookDetail</servlet-name>
+        <url-pattern>/historyDemo1/historyShowBookDetail</url-pattern>
+    </servlet-mapping>
+
+    <!--//////////////////////////////////-->
+
+    <servlet>
+        <servlet-name>historyShowAllBookServlet2</servlet-name>
+        <servlet-class>com.fangyi.session.historyDemo2.HistoryShowAllBookServlet</servlet-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>historyShowAllBookServlet2</servlet-name>
+        <url-pattern>/historyDemo2/historyShowAllBookServlet</url-pattern>
+    </servlet-mapping>
+
+    <!--//////////////////////////////////-->
+
+    <servlet>
+        <servlet-name>historyShowCart</servlet-name>
+        <servlet-class>com.fangyi.session.historyDemo2.HistoryShowCart</servlet-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>historyShowCart</servlet-name>
+        <url-pattern>/historyDemo2/historyShowCart</url-pattern>
+    </servlet-mapping>
+
+    <!--//////////////////////////////////-->
+
+    <servlet>
+        <servlet-name>historyAddCart</servlet-name>
+        <servlet-class>com.fangyi.session.historyDemo2.HistoryAddCart</servlet-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>historyAddCart</servlet-name>
+        <url-pattern>/historyDemo2/historyAddCart</url-pattern>
+    </servlet-mapping>
+
+    <!--//////////////////////////////////-->
+
+
+    <servlet>
+        <servlet-name>sessionDemo1</servlet-name>
+        <servlet-class>com.fangyi.session.SessionDemo1</servlet-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>sessionDemo1</servlet-name>
+        <url-pattern>/sessionDemo1</url-pattern>
+    </servlet-mapping>
+
+    <!--//////////////////////////////////-->
+
+    <servlet>
+        <servlet-name>sessionDemo2</servlet-name>
+        <servlet-class>com.fangyi.session.SessionDemo2</servlet-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>sessionDemo2</servlet-name>
+        <url-pattern>/sessionDemo2</url-pattern>
+    </servlet-mapping>
+
+
+    <!--//////////////////////////////////-->
+
+    <servlet>
+        <servlet-name>codeServlet</servlet-name>
+        <servlet-class>com.fangyi.session.CodeServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>codeServlet</servlet-name>
+        <url-pattern>/codeServlet</url-pattern>
+    </servlet-mapping>
+
+
+    <!--//////////////////////////////////-->
+
+    <servlet>
+        <servlet-name>loLogin</servlet-name>
+        <servlet-class>com.fangyi.session.DoLogin</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>loLogin</servlet-name>
+        <url-pattern>/session/loLogin</url-pattern>
+    </servlet-mapping>
+
+    <!--//////////////////////////////////-->
+
+
     <!--首次启动页面-->
     <welcome-file-list>
-        <welcome-file>html_demo2.html</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 </web-app>

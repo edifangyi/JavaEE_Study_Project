@@ -1,6 +1,6 @@
 package com.fangyi.httpServletRequest;
 
-import com.fangyi.bean.User;
+import com.fangyi.entity.User;
 import org.apache.commons.beanutils.BeanUtils;
 
 import javax.servlet.ServletException;
@@ -42,6 +42,11 @@ public class HttpServletRequestDemo1 extends HttpServlet {
 //        test9(req);
     }
 
+    /**
+     * 获取图片之类的流文件
+     * @param req
+     * @throws IOException
+     */
     private void test9(HttpServletRequest req) throws IOException {
         ServletInputStream sis = req.getInputStream();
         int len = 0;
@@ -54,6 +59,10 @@ public class HttpServletRequestDemo1 extends HttpServlet {
         sis.close();
     }
 
+    /**
+     * 使用BeanUtils
+     * @param req
+     */
     private void test8(HttpServletRequest req) {
         try {
             User u = new User();
@@ -67,6 +76,10 @@ public class HttpServletRequestDemo1 extends HttpServlet {
     }
 
 
+    /**
+     * 使用PropertyDescriptor 和 Map
+     * @param req
+     */
     private void test7(HttpServletRequest req) {
         try {
             User u = new User();

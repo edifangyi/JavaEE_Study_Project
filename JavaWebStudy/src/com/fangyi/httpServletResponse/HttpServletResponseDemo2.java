@@ -1,5 +1,6 @@
 package com.fangyi.httpServletResponse;
 
+
 import cn.dsna.util.images.ValidateCode;
 
 import javax.imageio.ImageIO;
@@ -34,9 +35,6 @@ public class HttpServletResponseDemo2 extends HttpServlet {
         resp.setHeader("cache-control", "no-cache");
         resp.setIntHeader("expires", 0);
 
-        System.out.println("=======================");
-        System.out.println("=======================");
-        System.out.println("=======================");
         ValidateCode vc = new ValidateCode(110, 25, 4, 9);
         String code = vc.getCode();//得到生成的字符
         System.out.println(code);
