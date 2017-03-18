@@ -897,7 +897,7 @@ js中的事件:
 		onresize 	窗口或框架被重新调整大小。
 		onselect 	文本被选中。
 
-		onsubmit 	确认按钮被点击。加在form表单上的 onsubmit="return 函数名()"   注意函数返回值为boolean类型
+	*	onsubmit 	确认按钮被点击。加在form表单上的 onsubmit="return 函数名()"   注意函数返回值为boolean类型
 
 		onunload 	用户退出页面。 
 
@@ -905,6 +905,12 @@ js中的事件:
 js事件和函数的绑定:
 	方式1:
 		通过标签的事件属性   <xxx onclick="函数名(参数)"></xxx>
+
+
+	方式2:派发事件
+		document.getElementById("id值").onxxx=function(){...};
+		document.getElementById("id值").onxxx=函数名;
+
 
 
 		<script>
@@ -941,9 +947,17 @@ js获取元素:
 		var obj=documnet.getElementById("id值");
 
 	获取元素的value值
+
 		obj.value;
+
 	获取元素的标签体中的内容
+
 		obj.innerHTML;
+
+
+	设置元素的标签体
+
+		obj.innerHTML = "sss";
 
 		<script>
 			function btnCli(){
@@ -1132,4 +1146,1216 @@ String对象
 
 
 /////////////////////////////////////////////////////////////////////////////////////
+
+案例1-定时弹出广告
+需求:
+	打开页面后4秒,展示广告,2秒之后,该广告隐藏.再停2秒,继续展示.
+
+技术分析:
+	定时器
+
+定时器(BOM-window对象)
+	setInterval(code,毫秒数):周期执行
+	setTimeout(code,毫秒数):延迟多长事件后 只执行一次.
+	
+	清除定时器
+		clearInterval(id):
+		clearTimeout(id):
+
+步骤分析:
+	1.确定事件
+	2.编写函数
+		a.获取元素
+		b.操作元素
+////////////////////////
+///
+///
+	1.html页面,先把广告隐藏
+	2.页面加载成功事件 onload
+	3.编写函数
+		定时器:
+		操作元素:
+			document.getElementById("")
+		操作css属性
+			document.getElementById("id").style.属性="值"
+			属性:就是css中属性 css属性有"-" 例如:backgroud-color
+				若有"-" 只需要将"-"删除,后面第一个字母变大写即可
+	注意:
+		只要是window对象的属性和方法,可以把window省略
+			window.onload 等价于 onload
+			window.setInterval() 等价于 setInterval()
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+	<script>
+		//点击按钮之后,给id为divid0的元素添加 边框 背景色 宽高
+		function btnCli(){
+			//1.获取元素
+			var obj=document.getElementById("divid0");
+			//alert(obj)
+			
+			//2.操作元素
+			//添加背景色
+			obj.style.backgroundColor="#ff0";
+			
+			//添加边框
+			obj.style.border="1px solid red";
+			
+			//添加宽和高
+			obj.style.width="100px";
+			obj.style.height="100px";
+		}
+
+
+
+		//body加载成功
+		function init(){
+			alert(1)
+		}
+
+	</script>
+
+	<body id="bid" onload="init()">
+		<input type="button" value="将div加上样式" onclick="btnCli()"/>
+
+
+		<div id="divid0"></div>
+		
+	</body>
+
+
+	//window加载成功
+	<script>
+
+		//window.onload == onload
+		//window.setInterval()== setInterval()
+		/*window.onload=function(){
+			alert(1)
+		}*/
+
+		//window可以省略
+		onload=function(){
+			alert(1)
+		}
+	</script>
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+案例1-弹出广告
+
+
+	<script>
+		//记录次数
+		var i=0;
+		
+		//定时器id
+		var timer;
+		
+		onload=function(){
+			//设置定时器 间隔4秒后展示图片
+			timer=setInterval(showAd,4000);
+		}
+		
+		//展示广告方法 展示2秒之后隐藏
+		function showAd(){
+			//展示的次数加1
+			i++;
+			
+			//若i=3 清空由setinterval设置的定时器
+			if(i==3){
+				clearInterval(timer);
+			}
+			
+			//1.获取广告
+			var divObj=document.getElementById("ad");
+			
+			//2.修改广告的样式 将其显示
+			divObj.style.display="block";
+			
+			//3.2秒之后隐藏 只执行一次
+			setTimeout(hideAd,2000);
+			
+		}
+		
+		//隐藏广告
+		function hideAd(){
+			//1.获取广告
+			var divObj=document.getElementById("ad");
+			
+			//2.修改样式 将其隐藏
+			divObj.style.display="none";
+		}
+
+	</script>
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+
+bom(浏览器对象模型)总结
+	所有的浏览器都有5个对象
+		window:窗口
+		location:定位信息 (地址栏)
+		history:历史
+window对象详解:
+	如果文档包含框架（frame 或 iframe 标签），浏览器会为 HTML 文档创建一个 window 对象，
+	并为每个框架创建一个额外的 window 对象。
+	常用的属性:
+		通过window可以获取其他的四个对象
+			window.location 等价域 location
+			window.history 等价于 history
+			...
+	常用的方法
+		消息框
+			alert("...."):警告框
+			confirm("你确定要删除吗?"):确定框 返回值:boolean
+			prompt("请输入您的姓名"):输入框 返回值:你输入的内容
+		定时器
+			设置定时器
+				setInterval(code,毫秒数):周期执行
+				setTimeout(code,毫秒数):延迟多长事件后 只执行一次.
+				
+				例如:
+					setInterval(showAd,4000);
+					serInterval("showAd()",4000);
+			
+			清除定时器
+				clearInterval(id):
+				clearTimeout(id):
+		打开和关闭
+			open(url):打开
+			close():关闭
+
+
+
+	*	alert() 显示带有一段消息和一个确认按钮的警告框
+
+		blur() 把键盘焦点从顶层窗口移开
+		clearInterval() 取消由 setInterval() 设置的 timeout
+		clearTimeout() 取消由 setTimeout() 方法设置的 timeout
+
+	*	close() 关闭浏览器窗口
+
+	*	confirm() 显示带有一段消息以及确认按钮和取消按钮的对话框
+
+		createPopup() 创建一个 pop-up 窗口
+		focus() 把键盘焦点给予一个窗口
+		moveBy() 可相对窗口的当前坐标把它移动指定的像素
+		moveTo() 把窗口的左上角移动到一个指定的坐标
+
+	*	open() 打开一个新的浏览器窗口或查找一个已命名的窗口
+
+		print() 打印当前窗口的内容
+
+	*	prompt() 显示可提示用户输入的对话框
+
+		resizeBy() 按照指定的像素调整窗口的大小
+		resizeTo() 把窗口的大小调整到指定的宽度和高度
+		scrollBy() 按照指定的像素值来滚动内容
+		scrollTo() 把内容滚动到指定的坐标
+		setInterval() 按照指定的周期（以毫秒计）来调用函数或计算表达式
+		setTimeout() 在指定的毫秒数后调用函数或计算表达式
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+		href:获取或者设置当前页面的url(定位信息)
+		
+		location.href; 获取url
+		location.href="...";设置url 相当于 a标签
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+		history:历史
+			.back();后退
+			.forward():向前
+		★	.go(int)
+			.go(-1) 相当于 back()
+			.go(1) 相当于 forward()
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+案例2-表单校验plus
+需求:
+	提示信息不用弹出框,将信息追加在文本框后面
+
+技术分析:
+
+	确定事件 表单提交的时候 onsubmit
+			文本框失去焦点的时候 onblur
+	编写函数
+	获取元素
+		document.getElementById("id值");
+	操作元素(获取元素的值,操作标签体,操作标签value属性)
+/////////////////
+步骤分析:
+	1.表单
+	2.表单提交的时候 确定事件 onsubmit()
+	3.校验用户名和密码
+	4.获取用户名和密码的对象及值
+	5.判断内容,当为空的时候,获取响应的span元素
+		往span元素中显示错误信息
+
+
+	<body>
+		用户名:<input name=""  value="tom" onfocus="getFocus()" onblur="loseFocus()" id="username"/><br />
+		<span id="spanid"></span>
+	</body>
+	<script>
+	
+		//得到焦点
+		function getFocus(){
+			//获取元素
+			var user=document.getElementById("username");
+			//alert(user.value);
+			
+			//给span填写内容 文本框的内容
+			document.getElementById("spanid").innerHTML=user.value;
+		}
+		
+		//失去焦点的时候将他的内容弹出来
+		function loseFocus(){
+			//获取元素
+			var user=document.getElementById("username");
+			
+			alert(user.value);
+		}
+	</script>
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+
+注意:
+
+	在方法中(function()) this指代的是当前的元素(当前dom对象)
+例如:
+	<input type="text" name="username" id="username" onblur="loseFocus(this.value)">
+	方法:
+		function loseFocus(obj){
+			alert(obj);
+		}
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+事件总结:
+	常见的事件:
+
+		焦点事件:★
+			onfocus
+			onblur
+
+		表单事件:★
+			onsubmit
+			onchange 改变
+
+		页面加载事件:★
+			onload
+		
+		鼠标事件(掌握)
+			onclick
+
+		鼠标事件(了解)
+			ondblclick:双击
+			onmousedown:按下
+			onmouserup:弹起
+			onmousemove:移动
+			onmouserover:悬停
+			onmouserout:移出
+
+		键盘事件(理解)
+			onkeydown:按下
+			onkeyup:弹起
+			onkeypress:按住
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+了解
+	阻止默认事件的发生
+	阻止事件传播
+
+		<a href="http://www.itheima.com" onclick="one()">黑马程序员</a><br/>
+		<a href="http://www.itcast.cn" onclick="two()">传智播客</a><br/>
+		<script type="text/javascript">
+			function one(){
+				alert("我之后，黑马官网继续访问");
+			}
+			
+			function two(event){
+				alert("我之后，传智官网不再访问");
+				var event = event || window.event;//IE中event为空，保证event有值
+
+				//阻止默认事件的发生
+				event.preventDefault();
+			}
+		</script>
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+			alert( true || false);	//true
+			alert(true||"abc")		//true
+			alert(false||"abc")		//"abc"
+			alert(true&&false)		//false
+			alert(true&&"abc")		//"abc"
+			alert(false&&"abc")		//false
+			alert(null&&"abc");		//null
+			alert(Boolean(null))    //false	
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+
+案例3-隔行换色
+需求:
+	一个表格,隔一行换一个色
+技术分析:
+	事件:onload 
+	获取元素:dom操作
+
+
+///////////////
+
+
+获取元素:
+	document.getElementById("id"):通过id获取一个元素
+	document.getElementsByTagName("标签名"):通过标签名获取一种元素(多个)返回一个数组
+
+Array:
+	常用属性:
+		length:数组的长度
+
+
+////////////////////////
+
+步骤分析:
+	1.html表格一加载的时候 确定事件 onload
+	2.编写函数
+		a.获取元素(所有的tr元素)
+		b.操作(若当前行是偶数的话加一个样式,若是奇数的话,加另一个样式)
+
+	//页面加载成功
+			onload=function(){
+				//1.获取所有的tr
+				var arr=document.getElementsByTagName("tr");
+				//alert(arr);
+				//alert(arr.length);
+				
+				//2.判断奇偶数 添加不同的样式 遍历数组
+				for(var i=1;i<arr.length;i++){
+					if(i%2==0){
+						arr[i].style.backgroundColor="#FFFFCC";
+					}else{
+						arr[i].style.backgroundColor="#BCD68D";
+					}
+				}
+				
+			}
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+案例4:全选或者全不选
+步骤分析:
+	1.确定事件 最上面那个复选框的单击事件 onclick
+	2.编写函数:让所有的复选框和最上面的复选框状态保持一致
+		a.获取最上面这个复选框选中状态 通过checkbox的checked属性即可
+		b.获取其他的复选框,设置他们的checked属性即可
+			可以通过以下两种方案获取元素
+				document.getElementsByClassName():需要给下面所有的复选框添加class属性
+				document.getElementsByName():需要给下面所有的复选框添加name属性
+
+
+
+
+
+		<script>
+			function selectAll(obj){
+				//获取当前复选框的选中状态
+				var flag=obj.checked;
+				
+				//获取所有的复选框
+				var arr=document.getElementsByClassName("itemSelect");
+				
+				//遍历数组,将所有的复选框和flag相同
+				for(var i=0;i<arr.length;i++){
+					arr[i].checked=flag;
+				}
+			}
+		</script>
+
+
+
+		<table id="tab1" border="1" width="800" align="center" >
+			<tr>
+				<td colspan="5"><input type="button" value="添加"/> <input type="button" value="删除"></td>
+			</tr>
+			<tr>
+				<th><input type="checkbox" onclick="selectAll(this)" ></th>
+				<th>分类ID</th>
+				<th>操作</th>
+			</tr>
+			<tr>
+				<td><input type="checkbox" class="itemSelect"></td>
+				<td>1</td>
+				<td><a href="">修改</a>|<a href="">删除</a></td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" class="itemSelect"></td>
+				<td>2</td>
+				<td><a href="">修改</a>|<a href="">删除</a></td>
+			</tr>
+		</table>
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+dom(文档对象模型)
+	当浏览器接受到html代码的时候,浏览器会将所有的代码装载到内存中,形成一棵树(document树)
+	节点(Node)
+		文档节点 document
+		元素节点 element
+		属性节点 attribute
+		文本节点 text
+	
+	获取节点:
+		通过document可以获取其他节点:
+			常用方法:
+				document.getElementById("id值"):获取一个特定的元素
+				document.getElementsByTagName("标签名"):通过标签名获取一种元素(多个)
+				document.getElementsByClassName("class属性的值"):通过class属性获取一类元素(多个)
+				document.getElementsByName("name属性的值"):通过name属性获取一类元素(多个)
+		
+		设置获取获取节点的value属性
+			dom对象.value;获取
+			dom对象.value="";设置
+		
+		设置或者获取节点的标签体
+			dom对象.innerHTML;获取
+			dom对象.innerHTML="";设置
+		
+		获取或者设置style属性
+			dom对象.style.属性;获取
+			dom对象.style.属性="";设置
+		
+		获取或者设置属性
+			dom对象.属性
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+对于htmldom的操作若在js或者htmldom 查找不到 去查找xml dom
+	关于文档的操作 在 xml dom 的document中
+	关于元素的操作 在 xml dom 的element中
+		appendChild(dom对象):在一个元素下添加孩子
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+案例5-左右选中.
+需求:
+技术分析:
+	1.确定事件,按钮的单击事件
+	2.编写函数:
+		点击移动单|多个的:
+			a.获取左边选中的选项  select对象.options--数组
+				遍历数组 判断是否选中 option对象.selected
+			b.将其追加到右边的下拉选中
+				rightSelect对象.appendChild(option);
+		点击移动所有的
+			a.获取左边的所有的选项
+			b.一个个的追加过去
+
+
+
+	<script>
+	 		onload=function(){
+		 			//给单移按钮派发事件
+		 			document.getElementById("toRight1").onclick=function(){
+		 					//获取左边所有的option
+		 					var arr=document.getElementById("left").options;
+		 					//alert(arr);
+		 					//alert(arr.length);
+		 					
+		 					//遍历数组 判断是否选中
+		 					for(var i=0;i<arr.length;i++){
+		 							//判断是否选中 若选中 则追加(移动)到右边的select中
+		 							if(arr[i].selected){
+		 								document.getElementById("right").appendChild(arr[i]);
+		 								break;
+		 							}
+		 					}
+		 			}
+		 			
+		 			//给多移动按钮派发事件
+		 			document.getElementById("toRight2").onclick=function(){
+		 					//获取左边所有的option
+		 					var arr=document.getElementById("left").options;
+		 					//alert(arr);
+		 					//alert(arr.length);
+		 					
+		 					//遍历数组 判断是否选中 
+		 					for(var i=0;i<arr.length;i++){
+		 							//判断是否选中 若选中 则追加(移动)到右边的select中
+		 							if(arr[i].selected){
+		 								document.getElementById("right").appendChild(arr[i]);
+		 								//注意:长度变化
+		 								i--;
+		 							}
+		 					}
+		 			}
+		 			
+		 			
+		 				//给全部移动按钮派发事件
+		 			document.getElementById("toRight3").onclick=function(){
+		 					//获取左边所有的option
+		 					var arr=document.getElementById("left").options;
+		 				
+		 					
+		 					//遍历数组 判断是否选中 
+		 					for(var i=0;i<arr.length;){
+		 							//相当于永远把第一个选项移动过去
+		 								document.getElementById("right").appendChild(arr[i]);
+		 								//注意:长度变化
+		 								
+		 					}
+		 			}
+		 			
+	 		}
+	 </script>
+	<body>
+		<table>
+			<tr>
+				<td>
+				<!-- multiple 多选 -->
+					<select id="left" multiple="true" style="width:100px" size="10">
+						<option>環</option>
+						<option>芈</option>
+						<option>琅</option>
+						<option>琊</option>
+						<option>爨</option>
+						<option>甄</option>
+						<option>槑</option>
+						<option>夔</option>
+					</select>
+				</td>
+				<td>
+					<input type="button" value=">" id="toRight1"><br>
+					<input type="button" value=">>" id="toRight2"><br>
+					<input type="button" value=">>>" id="toRight3"><br><br>
+					<input type="button" value="<" id="toLeft1"><br>
+					<input type="button" value="<<" id="toLeft2"><br>
+					<input type="button" value="<<<" id="toLeft3">
+				</td>
+				<td>
+					<select id="right" multiple="true" style="width:100px" size="10">
+						
+					</select>
+				</td>
+			</tr>
+		</table>
+	</body>
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+案例6-省市联动
+需求:
+	选中省的时候,动态的查询当前省下的所有市,然后展示在市的下拉选中
+技术分析:
+	数组:
+
+////////////////////////
+
+数组:
+	语法:
+		new Array();//长度为0
+		new Array(size);//指定长度的
+		new Array(e1,e2..);//指定元素
+		非官方
+			var arr4=["aa","bb"];
+	常用属性:
+		length
+	注意:
+		数组是可变的
+		数组可以存放任意值
+	常用方法:(了解)
+		存放值:对内容的操作
+			pop():弹	最后一个
+			push():插入 到最后
+			
+			shift():删除第一个
+			unshift():插入到首位
+		打印数组:
+			join(分隔符):将数组里的元素按照指定的分隔符打印
+		拼接数组:
+			concat():连接两个或更多的数组，并返回结果。
+		对结构的操作:
+			sort();排序
+			reverse();反转
+
+////////////////////////
+
+步骤分析:
+	1.省的下拉选 的选项中添加value属性 当成数组的索引
+	2.初始化市
+	3.选择省的时候,onchange事件
+	4.编写函数,
+		通过获取的索引获取对象的市的数组 this.value
+		遍历数组,将数组里面的每个值组装option 添加到select中即可
+			
+
+
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>
+			// 定义二维数组:
+			var arr = new Array(4);
+			arr[0] = new Array("哈尔滨","齐齐哈尔","大庆","佳木斯");
+			arr[1] = new Array("长春市","吉林市","四平市","通化市");
+			arr[2] = new Array("沈阳市","锦州市","大连市","铁岭市");
+			arr[3] = new Array("郑州市","洛阳市","安阳市","南阳市");
+		</script>
+	</head>
+	<body>
+		<form action="#" method="get">
+			<input type="hidden" name="id" value="007"/>
+			姓名:<input name="username" value="xuduoduo"/><br>
+			密码:<input type="password" name="password"  value="123" disabled="disabled"><br>
+			性别:<input type="radio" name="sex" value="1" checked="checked">男
+				<input type="radio" name="sex" value="0">女
+				<br>
+			爱好:<input type="checkbox" name="hobby" value="eat">吃
+				<input type="checkbox" name="hobby" value="drink" checked="checked">喝
+				<input type="checkbox" name="hobby" value="sleep" checked="checked">睡
+				<br>
+			头像:<input type="file" name="photo"><br>
+			籍贯:
+				<select name="pro" onchange="selCity(this.value)">
+					<option >-请选择-</option> 
+					<option value="0">黑龙江</option>
+					<option value="1">吉林</option>
+					<option value="2">辽宁</option>
+					<option value="3">河南</option>
+				</select>
+				<select name="city">
+					<option >-请选择-</option> 	
+				</select>
+			<br>
+			自我介绍:
+				<textarea name="intr" cols="40" rows="4">good!</textarea>
+			<br>
+			<input type="submit" value="保存"/>
+			<input type="reset" />
+			<input type="button" value="普通按钮"/>
+		</form>
+	</body>
+
+
+	<script>
+		function selCity(index){
+			//alert(index);
+			var cities=arr[index];
+			
+			//获取市的下拉选
+			var citySelObj=document.getElementsByName("city")[0];
+			
+			//先初始化
+			citySelObj.innerHTML="<option >-请选择-</option>";
+			
+			//遍历数组 组装成option 追加到select
+			for(var i=0;i<cities.length;i++){
+				citySelObj.innerHTML+=("<option>"+cities[i]+"</option>");
+			}
+		}
+	</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
