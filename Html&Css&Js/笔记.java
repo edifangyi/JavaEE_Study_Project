@@ -1894,86 +1894,1104 @@ dom(文档对象模型)
 	</script>
 
 
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+
+引用类型总结:
+	原始类型中的String Number Boolean都是伪对象,可以调用相应的方法
+	Array:数组
+	String:
+		语法:
+			new String(值|变量);//返回一个对象
+			String(值|变量);//返回原始类型
+		常用方法:
+			substring(start,end):[start,end)
+			substr(start,size):从索引为指定的值开始向后截取几个
+			
+			charAt(index):返回在指定位置的字符。
+			indexOf(""):返回字符串所在索引
+			
+			replace():替换
+			split():切割
+			
+		常用属性:length	
+	Boolean:
+		语法:
+			new Boolean(值|变量);
+			Boolean(值|变量);
+			非0数字 非空字符串 非空对象 转成true
+	Number
+		语法:
+			new Number(值|变量);
+			Number(值|变量);
+		注意:
+		
+			null====>0 
+			fale====>0 true====>1
+			字符串的数字=====>对应的数字
+			其他的NaN
+	Date:
+		new Date();
+		常用方法:
+			toLocalString()
+	RegExp:正则表达式
+		语法:
+			直接量语法  /正则表达式/参数
+			直接量语法  /正则表达式/
+			
+			new RegExp("正则表达式")
+			new RegExp("正则表达式","参数") 
+			参数:
+				i:忽略大小写
+				g:全局
+			常用方法:
+				test() :返回值为boolean
+	Math:
+		Math.常量|方法
+		Math.PI
+		Math.random()  [0,1)
+		
+	全局:
+		★
+		decodeURI() 解码某个编码的 URI。 
+		encodeURI() 把字符串编码为 URI。
 
+		Number():强制转换成数字
+		String():转成字符串
+		
+		parseInt():尝试转换成整数
+		parseFloat():尝试转换成小数
+		
+		eval() 计算 JavaScript 字符串，并把它作为脚本代码来执行。
 
 
 
+/////////////////////////////////////////////////////////////////////////////////////
+/**
 
 
 
 
+ */
+/////////////////////////////////////////////////////////////////////////////////////
 
 
 
 
+jquery和html的整合
+	jquery是单独的js文件
+		通过script标签的src属性导入即可
 
 
 
+获取一个jquery对象
+	$("选择器")  或者 jQuery("选择器")
 
 
 
 
+dom对象和jquery对象之间的转换
+	dom对象===>jquery对象	
+		$(dom对象)
 
+	<input type="text" id="username" value="jack"/>
 
+	<script>
 
+		var obj = document.getElementById("username")
+		var $user=$(obj);
+		alert($user.val());
 
 
 
 
+	jquery对象===>dom对象
 
+		方式1:
+			jquery对象[index]
+		方式2:
+			jquery对象.get(index)
 
+		var $u = $("#username");
 
+		var obj = $u.get(0);
+		var obj = $u[0];
 
 
+页面加载:
+	
+	js:
+		window.onload=function(){}//在一个页面中只能使用一次
+	
 
 
+	jquery 在一个页面中可以使用多次
+		方式1:
+			$(function(){...})
+		方式2:
+			$(document).ready(function(){});
 
 
 
+派发事件:
+	$("选择器").click(function(){...});
 
 
 
+	等价于 原生js中
+		dom对象.onclick=function(){....}
 
 
 
+	掌握事件:
+		focus
+		blur
+		submit
+		change
+		click
 
 
 
+			$(document).ready(function(){
+				$("#e01").blur(function(){
+					$("#textMsg").html("文本框失去焦点：blur");
+				})
 
+				.focus(function(){
+					$("#textMsg").html("文本框获得焦点：focus");
+				})
 
+				.keydown(function(){
+					$("#textMsg").append("键盘按下：keydown");
+				})
 
+				.keypress(function(event){
+					$("#textMsg").append("键盘按：keypress");
+				})
 
+				.keyup(function(){
+					$("#textMsg").append("键盘弹起：keyup");
+				});
+				
+				var i = 0;
+				$("#e02").mouseover(function(){
+					$("#divMsg").html("鼠标移上：mouseover");
+				})
 
 
 
 
+				.mousemove(function(){
+					//$("#divMsg").html("鼠标移动：mousemove , " + i++ );
+				})
 
+				.mouseout(function(){
+					$("#divMsg").html("鼠标移出：mouseout");
+				})
 
+				.mousedown(function(){
+					$("#divMsg").html("鼠标按下：mousedown");
+				})
 
+				.mouseup(function(){
+					$("#divMsg").html("鼠标弹起：mouseup");
+				});
 
 
 
+				
+				$("#e03")
 
+				.click(function(){
+					$("#buttonMsg").html("单击：click");
+				})
 
+				.dblclick(function(){
+					$("#buttonMsg").html("双击：dblclick");
+				});
+				
+			});
+			
 
 
+jquery中效果:
+	隐藏或展示
+		show(毫秒数) hide(毫秒数)
+	滑入或滑出
+		slideDown(毫秒数):向下滑入
+		slideUp(毫秒数):向上滑出
+	淡入或淡出
+		fadeIn(int):淡入
+		fadeOut(int):淡出
 
 
 
 
+		基本
+		show([s,[e],[fn]]) 		展示
+		hide([s,[e],[fn]]) 		隐藏
+		toggle([s],[e],[fn])	切换
 
+		滑动
+		slideDown([s],[e],[fn]) 
+		slideUp([s,[e],[fn]]) 
+		slideToggle([s],[e],[fn])
 
+		淡入淡出
+		fadeIn([s],[e],[fn]) 
+		fadeOut([s],[e],[fn]) 
+		fadeTo([[s],o,[e],[fn]]) 
+		fadeToggle([s,[e],[fn]]) 
 
+		自定义
+		animate(p,[s],[e],[fn])1.8* 
+		stop([c],[j])1.7* 
+		delay(d,[q]) 
 
+		设置
+		jQuery.fx.off 
+		jQuery.fx.interval 
 
+/////////////////////////////////////////////////////////////////////////////////////
 
 
+选择器总结:
 
 
+	基本选择器★
+		$("#id值")  $(".class值")  $("标签名")  多有元素${"*"}
 
 
+			$("#btn1").click(function() {
+				$("#ine").css("background-color","#ff0");
+			})
 
+			$("#btn2").click(function() {
+				$(".mini").css("background-color","#ff0");
+			})
 
+			$("#btn2").click(function() {
+				$("div").css("background-color","#ff0");
+			})
+
+			$("#btn2").click(function() {
+				$("*").css("background-color","#ff0");
+			})
+
+
+			$("#btn2").click(function() {
+				$("span,#two").css("background-color","#ff0");
+			})
+		
+		
+		了解:$("*")
+		理解:获取多个选择器 用逗号隔开
+			$("#id值,.class值")
+
+//////////////////////////////////
+
+
+	层次选择器 ★
+		a b  :a的所有b后代
+		a>b  :a的所有b孩子
+		a+b  :a的下一个兄弟(大弟弟)
+		a~b  :a的所有弟弟
+
+		// 选择 body内的所有div元素
+			$("#btn2").click(function() {
+				$("body div").css("background-color","#ff0");
+			})
+		// 在body内,选择子元素是div的
+
+			$("#btn2").click(function(){
+				$("body>div").css("background-color","#f0f");
+			});
+		// 选择 id为one 的下一个div元素 就是 two的div元素.
+			$("#btn3").click(function(){
+				$("#one+div").css("background-color","#f0f");
+			});
+
+		// 选择 id为two的元素后面的所有div兄弟元素.
+			$("#btn4").click(function(){
+				$("#two~div").css("background-color","#f0f");
+			});
+
+
+//////////////////////////////////
+
+
+	基本过滤选择器:★
+		:frist 第一个
+		:last 最后一个
+		:odd  索引奇数
+		:even 索引偶数
+		:eq(index) 指定索引
+		:gt(index) >
+		:lt(index) <
+
+
+		//选择第一个div元素
+			$("#btn1").click(function(){
+				$("div:first").css("background-color","#0f0");
+			});
+
+		//选择最后一个div元素
+			$("#btn2").click(function(){
+				$("div:last").css("background-color","#0f0");
+			});
+
+		//选择索引值为偶数 的div元素
+			$("#btn3").click(function(){
+				$("div:even").css("background-color","#0f0");
+			});
+
+		//选择索引值为奇数 的div元素
+			$("#btn4").click(function(){
+				$("div:odd").css("background-color","#0f0");
+			});
+
+		//选择索引值等于3的div元素
+			$("#btn5").click(function(){
+				$("div:eq(3)").css("background-color","#0f0");
+			});
+
+		//选择索引值大于3的div元素	
+			$("#btn6").click(function(){
+				$("div:gt(3)").css("background-color","#0f0");
+			});
+
+//////////////////////////////////
+
+
+	内容过滤:
+		:has("选择器"):包含指定选择器的元素
+
+		//选取含有class为mini元素 的div元素
+	 		$("#btn1").click(function(){
+	 			$("div:has('.mini')").css("background-color","#0ff");
+	 		});
+
+//////////////////////////////////	
+
+
+	可见过滤:
+		:hidden   在页面不展示元素 一般指 input type="hidden" 和 样式中display:none
+		:visible 
+
+
+		//选取所有可见的div元素
+			$("#b1").click(function(){
+				$("div:visible").css("background-color","#f0f");
+			});
+
+		//选取所有不可见的div元素, 利用 jQuery 中的 show() 方法将它们显示出来
+	 		$("#b2").click(function(){
+				$("div:hidden").css("background-color","#f0f").show(1000);
+			});
+
+
+//////////////////////////////////
+
+	属性过滤器:★
+		[属性名]
+		[属性名="值"]
+
+
+		属性
+			[attribute] 
+			[attribute=value] 
+			[attribute!=value] 
+			[attribute^=value] 
+			[attribute$=value] 以某些值结尾的元素
+			[attribute*=value] 包含某些值的元素
+			[attrSel1][attrSel2][attrSelN] 
+
+
+		//选取含有 属性title 的div元素
+			$("#btn1").click(function(){
+				$("div[title]").css("background-color","#ff0");
+			});
+
+		//选取 属性title值等于“test”的div元素
+			$("#btn2").click(function(){
+				$("div[title='test']").css("background-color","#ff0");
+			});
+
+//////////////////////////////////
+
+	表单过滤:
+		:input  所有的表单子标签  input select textarea button
+		//input
+
+			$(function(){
+			 		$("#btn1").click(function(){
+			 			//alert($("#form1 :input").size());//层次选择器
+			 			//alert($("#form1 :input").length);
+			 			alert($("#form1 input").size());
+			 		});
+			 });
+
+		表单
+		:input 
+		:text 
+		:password 
+		:radio 
+		:checkbox 
+		:submit 
+		:image 
+		:reset 
+		:button 
+		:file 
+		:hidden 
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+案例2-隔行换色
+
+			$(function(){
+				/*$("tr:odd").css("background-color","#BCD68D");
+				$("tr:even").css("background-color","#FFFFCC");*/
+				
+				/*$("tr:gt(0):odd").css("background-color","#BCD68D");
+				$("tr:gt(0):even").css("background-color","#FFFFCC");*/
+				
+				$("tr:gt(0):odd").addClass("odd");
+				$("tr:gt(0):even").addClass("even");
+			})
+
+
+技术分析:
+	1.页面加载成功
+	2.获取所有的奇数行 添加一个css
+	3.获取所有的偶数行 添加一个css
+
+属性和css操作总结:
+
+	CSS
+		css(name|pro|[,val|fn])1.8* 
+	位置
+		offset([coordinates]) 
+		position() 
+		scrollTop([val]) 
+		scrollLeft([val]) 
+	尺寸
+		heigh([val|fn]) 
+		width([val|fn]) 
+		innerHeight() 
+		innerWidth() 
+		outerHeight([soptions]) 
+		outerWidth([options]) 
+
+
+
+	对属性的操作:
+		attr():设置或者获取元素的属性
+
+			方式1:获取
+				attr("属性名称")
+
+			方式2:设置一个属性
+				attr("属性名称","值");
+
+			方式3:设置多个属性  json
+				attr({
+					"属性1":"值1",
+					"属性2":"值2"
+				})
+
+		removeAttr("属性名称"):移除指定属性
+	//添加class属性的时候 
+	//	attr("class","值");
+	addClass("指定的样式值"); 相当于 attr("class","指定的样式值");
+	removeClass("指定的样式值");
+
+	对css操作:操作元素的style属性
+		css():获取或者设置css样式
+			方式1:获取	
+				css("属性名")
+			方式2:设置一个属性
+				css("属性名","值")
+			方式3:设置多个
+				css({
+					"属性1":"值1",
+					"属性2":"值2"
+				});
+	获取元素的尺寸:
+		width()
+		height()
+
+
+		$(document).ready(function(){
+			//1.1给username添加title属性
+			var $username=$("[name='username']");
+			$username.attr("title","姓名");
+			//1.2获取username的title属性
+			//alert($username.attr("title"));
+			
+			//1.3给username添加value和class属性
+			$username.attr({
+				"value":"许多多",
+				"class":"textClass"
+			});
+			
+			//1.4删除username的class属性
+			$username.removeAttr("class");
+			
+			//2.1给username添加一个名为textClass的样式
+			$username.addClass("textClass");
+			
+			//2.2删除username的名为textClass的样式
+			$username.removeClass("textClass");
+			
+			
+			//4.1 给div添加边框样式
+			var $div=$("div");
+			$div.css("border","1px solid red");
+			
+			//4.2 获取div的表框样式
+			//alert($div.css("border"));
+			
+			//4.3 给div添加多种样式
+			$div.css({
+				"width":"100px",
+				"height":"100px",
+				"background-color":"#ff0"
+			});
+			
+			//5 获取div的位置
+			//alert($div.offset().left)
+			
+			//6 获取div的高和宽
+			alert($div.width());
+			});	
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+案例3-全选或者全不选
+需求:
+	就是将内容中复选框的选中状态和最上面的复选框状态保持一致
+步骤分析:
+	1.确定事件 复选框的单击事件
+	2.函数中
+		a.获取该复选框的选中状态  attr(获取不了checked属性)|prop
+		b.获取所有的复选框修改他们的状态
+注意:
+	若jquery版本>1.6 统一使用 prop操作元素的属性
+
+
+
+		$(function(){
+	 		$("#selectAll").click(function(){
+	 			//1.获取当前元素的选中状态 this在funcation中代表的是当前dom对象
+	 			//alert(this.checked);
+	 			//alert($(this).attr("checked"));//获取undefined
+	 			//alert($(this).prop("checked"));
+	 			
+	 			//2.获取所有的复选框 让其状态和 当前元素的选中状态保持一致
+	 			$(".itemSelect").prop("checked",$(this).prop("checked"));
+	 		});
+	 		
+	 		
+	 	});
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+案例4-省市联动
+步骤分析:
+	1.确定事件 省份的下拉选变化的时候  change
+	2.编写函数
+		a.获取当前省份的value值
+		b.通过数组获取该省下的所有市 返回值:数组
+		c.遍历数组,拼装成option元素 追加到市下拉选即可
+		注意:每次改变的时候初始化市的值.
+
+
+技术:
+	遍历数组
+		数组.each(function(){});
+		$.each(遍历数组,function(){});
+		
+	注意:
+		each的function中可以加两个参数 index和dom
+			index是当前遍历的索引值
+			dom指代的是当前遍历的dom对象(开发中一般使用this即可)
+
+
+
+		$("#b1").click(function(){
+ 			//1.获取文本隐藏
+ 			//alert($("input:hidden").size())
+ 			$("input:hidden").each(function(index,dom){
+ 				//alert(this.value)
+ 				//alert($(this).val());
+ 				//alert(index)//索引
+ 				//alert(dom.value)
+ 			});
+ 		});
+ 		
+ 		$("#b2").click(function(){
+ 			$.each($("input:hidden"), function() {
+ 				alert($(this).val());
+ 			});
+ 		});
+
+
+
+	//////////////////////////////
+	设置或者获取value属性
+		jquery对象.val():获取
+		jquery对象.val("...."):设置
+
+
+
+
+/////////////////////////////////////////
+
+
+	设置获取获取标签体的内容 
+		html()
+		text()
+		
+		xxxxx():获取标签体的内容
+		xxxxx("....."):设置标签体的内容
+			
+			设置的区别:
+				html:会把字符串解析
+				text:只做为普通的字符串
+			获取的区别:
+				html:获取的html源码
+				text:获取只是页面展示的内容
+
+		<td><input type="text" name="username"/></td>
+
+
+		<script type="text/javascript">
+			$(document).ready(function(){
+			
+			var $username=$("[name='username']");
+			$username.prop("value","许木木");
+
+			//3.1 获取 username的value属性的值
+			//alert($username.val());
+			
+			//3.2 设置 username的默认值为"许多多"
+			$username.val("许多多")
+			
+			//3.3通过html获取div标签体的内容
+			var $div=$("div");
+			//alert($div.html());
+			
+			//3.4通过html设置div标签体的内容
+			//$div.html("已满18,请带墨镜");
+			
+			//3.5通过text获取div标签体的内容
+			//alert($div.text());
+				
+			//3.6通过text设置div标签体的内容
+			//$div.text("已满18,请带墨镜");
+			
+			
+			//3.7 两者设置值的区别
+			//$div.html("<a href='#'>我是一个连接</a>");//就是一个超链接
+			//$div.html($("<a href='#'>").html("我"))
+			//$div.text("<a href='#'>我是一个连接</a>");//表括号里面的内容作为普通的字符串
+			
+			//3.8 两者获取值的区别
+			//alert($("#sp").html());//获取源码
+			//alert($("#sp").text());//获取只是展示的内容
+			$div.html($("<a href='#'>").html("我"));
+			});	
+		</script>
+
+
+/////////////////////////////////////////
+
+
+		<script>
+			// 定义二维数组:
+			var arr = new Array(4);
+			arr[0] = new Array("哈尔滨","齐齐哈尔","大庆","佳木斯");
+			arr[1] = new Array("长春市","吉林市","四平市","通化市");
+			arr[2] = new Array("沈阳市","锦州市","大连市","铁岭市");
+			arr[3] = new Array("郑州市","洛阳市","安阳市","南阳市");
+		</script>
+
+
+
+		$(function(){
+	 		$("[name='pro']").change(function(){
+	 			//获取市下拉选
+	 			var $city=$("[name='city']");
+	 			//初始化
+	 			$city.html($("<option>").html("-请选择-"));
+	 			
+	 			var pro=$(this).val();
+	 			//获取所有的市数组
+	 			var cities=$(arr[pro]);
+	 			//alert(cities);
+	 			
+	 			//遍历数组,拼装成option 追加到市下拉选中
+	 			cities.each(function(){
+	 				$city.append("<option>"+this+"</option>");
+	 				//$city.html($(""));
+	 			});
+	 		});
+	 	});
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+
+创建一个元素: $("<标签></标签>")
+///////////////////////
+文档操作:
+	内部插入
+		a.append(c):将c插入到a的内部(标签体)后面
+		a.prepend(c):将c插入到a的内部的前面
+		
+		appendTo
+		prependTo
+
+
+	$(document).ready(function(){
+		//0.获取两个元素
+		var $city=$("#city");
+		var $fk=$("#fk");
+		
+		//1.在city的后面内部追加 反恐
+		// $city.append($fk);
+		
+		//2.在city的前面内部插入 反恐
+		$city.prepend($fk)
+		
+	});
+
+
+///////////////////////
+	外部插入
+		a.after(c):将c放到a的后面
+		a.before(c):将c放到a的前面
+		
+		a.insertAfter(c)
+		a.insertBefore(c)
+
+
+
+		$(document).ready(function(){
+			//获取两个元素
+			var $city=$("#city");
+			var $p2=$("#p2");
+				
+			//1.在 p2 的后面插入 city
+			//	$p2.after($city);
+			
+			//2.在 p2 的前面插入 city
+		$p2.before($city);
+		
+		});
+
+
+///////////////////////
+	删除
+		empty() 清空元素
+		remove() 删除元素
+
+		$(document).ready(function(){
+		//1.清空ul
+		//$("#city").empty();
+		
+		//2.移除天津 remove
+		$("#tj").remove();
+					
+		});
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+案例5-左右移动
+步骤分析:
+	1.确定事件 单击事件
+	2.编写函数:
+		移动一个:
+			右边的下拉选追加一个 左边的选中的第一个
+		移动多个:
+			左边选中的 追加到右边的下拉选中
+		移动全部:
+			将左边的所有option追加到右边的下拉选中
+		
+技术分析:
+	表单对象属性过滤选择器
+		:enabled   可用的
+		:disabled  不可用
+		:checked 	选中的(针对于单选框和复选框的)
+		:selected 	选中的(针对于下拉选)
+
+
+	////对表单内 可用input 赋值操作
+		$("#btn1").click(function(){
+			$("input:enabled").val("我们来自黑马");
+		});
+	//对表单内 不可用input 赋值操作
+		$("#btn2").click(function(){
+			$("input:disabled").val("我们是最棒的");
+		});
+	////获取多选框选中的个数
+		$("#btn3").click(function(){
+			alert($("input[ name='newsletter']:checked").size());
+		});
+	////获取下拉框选中的个数
+		$("#btn4").click(function(){
+			alert($(":selected").size());
+		});
+
+///////////////////////////////////
+
+	$(function(){
+		//移动一个
+		$("#toRight1").click(function(){
+				$("#left>option:selected:first").appendTo($("#right"));
+		});
+		
+		//移动多个
+		$("#toRight2").click(function(){
+				$("#right").append($("#left option:selected"));
+		});
+		
+		//移动全部
+		$("#toRight3").click(function(){
+				$("#right").append($("#left option"));
+		});
+	})
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+/**
+
+
+
+
+
+
+
+
+ */
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+案例1-表单校验
+需求:
+	通过validate插件来校验表单
+技术分析:
+	jqery validate
+validate使用步骤:
+	validate是别人封装好的第三方工具
+	1.导入jquery.js
+	2.导入validate.js
+	3.在页面加载成功之后 对表单进行校验  $("选择器").validate()
+	4.在validate中编写校验规则
+		$("选择器").validate({
+			rules:{},
+			messages:{}
+		});
+
+
+
+			$(function(){
+				$("#formId").validate({
+					rules:{
+						// 字段的name属性:"校验器"
+						
+						//字段的name属性:{校验器:值,校验器:值}
+						username:"required",
+						password:{
+							required:true,
+							digits:true
+						},
+						repassword:{
+							equalTo:"[name='password']"
+						},
+						zuixiaozhi:{
+							min:5
+						},
+						shuzhiqujian:{
+							range:[5,10]
+						}
+					},
+					messages:{
+						//字段的name属性:"提示信息"
+						//字段的name属性:{校验器:"提示信息",校验器:提示信息"}
+						username:"用户名不能为空",
+						password:{
+							required:"密码不能为空",
+							digits:"密码只能是数字"
+						},
+						repassword:{
+							equalTo:"两次输入的内容不一致"
+						},
+						zuixiaozhi:{
+							min:"最小值应该大于{0}"
+						},
+						shuzhiqujian:{
+							range:"输入的范围在{0}~{1}之间"
+						}
+					}
+				});
+			})
+
+
+
+
+			<script type="text/javascript" src="../js/jquery-1.11.0.js" ></script>
+			<script type="text/javascript" src="../js/jquery.validate.js" ></script>
+			<script type="text/javascript" src="../js/messages_zh.js" ></script>
+			<script>
+				$(function(){
+					$("#formid").validate({
+						rules:{
+							username:"required",
+							password:{
+								rangelength:[3,6],
+								required:true
+							},
+							repassword:{
+								equalTo:"#password"
+							},
+							email:"email",
+							sex:"required"
+						},
+						messages:{
+							username:"用户名不能为空",
+							password:{
+								rangelength:"密码长度在{0}~{1}之间",
+								required:"密码不能为空"
+							}
+						}
+					});
+				})
+			</script>
+
+
+			<body>
+				<form action="#" method="get" id="formid">
+					<table width="60%" height="60%"  align="center" bgcolor="#ffffff">
+						<tr>
+							<td colspan="3">会员注册USER REGISTER</td>
+						</tr>
+						<tr>
+							<td width="20%">用户名:</td>
+							<td width="80%"><input type="text" name="username" id="username"></td>
+						</tr>
+						<tr>
+							<td>密码:</td>
+							<td><input type="password" name="password" id="password"></td>
+						</tr>
+						<tr>
+							<td>确认密码:</td>
+							<td><input type="password" name="repassword" id="repassword"></td>
+						</tr>
+						<tr>
+							<td>Email:</td>
+							<td><input type="text" name="email" id="email"></td>
+						</tr>
+						<tr>
+							<td>姓名:</td>
+							<td><input type="text" name="name"></td>
+						</tr>
+						<tr>
+							<td>性别:</td>
+							<td>
+								<input type="radio" name="sex" value="男" checked="checked"> 男
+								<input type="radio" name="sex" value="女" />女
+								<!--<label for="sex" class="error"></label>-->
+								<label for="sex" class="error"></label>
+							</td>
+						
+						</tr>
+						<tr>
+							<td>出生日期</td>
+							<td>
+								<input type="text" name="birthday">
+
+							</td>
+						</tr>
+						<tr>
+							<td>验证码</td>
+							<td>
+								<input type="text" name="checkcode">
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<input type="submit" value="注册" />
+							</td>
+						</tr>
+					</table>
+				</form>
+			</body>
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+/**
+
+
+
+
+
+
+
+
+ */
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+案例2-创建一个响应式的页面
+需求:
+	创建一套页面,可以根据上网设备的不同自动调节显示的效果.
+技术分析:
+	bootstrap
+bootstrap:
+	webcss框架,
+	集合了html/css/jquery为一家
+	创建响应式的页面
+	响应式:适配不同的上网设备
+bootstarp的入门
+	1.下载bootstarp
+		网站:http://www.bootcss.com/
+		下载:用于生产环境的 Bootstrap
+	2.导入bootstarp.css
+	3.导入jquery.js
+	4.导入bootstrap.js
+	5.添加一个meta标签 支持移动设备
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+	6.将所有的内容放入到布局容器中.
+		Bootstrap 需要为页面内容和栅格系统包裹一个 .container 容器。我们提供了两个作此用处的类
+		方式1:
+			<div class="container"></div>
+		方式1:
+			<div class="container-fluid"></div>
+注意:
+	bootstrap将每一行分成12份
+媒体查询:
+	假如大屏幕,每行显示6个
+		超大电脑,屏幕分辨率>1200		使用: col-lg-2
+		
+	假如屏幕小点,每行显示4个
+		992<屏幕分辨率<1200			使用: col-md-3
+			
+	再小点,每行显示2个
+		768<屏幕分辨率<992			使用: col-sm-6
+	
+	继续小,每行显示1个	
+		屏幕分辨率<768				使用:col-xs-12
 
 
 

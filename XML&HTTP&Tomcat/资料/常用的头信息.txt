@@ -1,0 +1,30 @@
+请求头
+Accept: text/html,image/*		--支持数据类型
+Accept-Charset: ISO-8859-1	--字符集
+Accept-Encoding: gzip		--支持压缩
+Accept-Language:zh-cn 		--语言环境
+Host: www.itcast.cn:80		--访问主机
+If-Modified-Since: Tue, 11 Jul 2000 18:23:51 GMT	  --缓存文件的最后修改时间
+Referer: http://www.itcast.com/index.jsp	 --来自哪个页面、防盗链
+User-Agent: Mozilla/4.0 (compatible; MSIE 5.5; Windows NT 5.0)
+Cookie
+Connection: close/Keep-Alive   	--链接状态
+Date: Tue, 11 Jul 2000 18:23:51 GMT	--时间
+
+
+响应头
+Location: http://www.it315.org/index.jsp 	--跳转方向
+Server:apache tomcat			--服务器型号
+Content-Encoding: gzip 			--数据压缩
+Content-Length: 80 			--数据长度
+Content-Language: zh-cn 		--语言环境
+Content-Type: text/html; charset=GB2312 		--数据类型
+Last-Modified: Tue, 11 Jul 2000 18:23:51 GMT	--最后修改时间
+Refresh: 1;url=http://www.it315.org		--定时刷新
+Content-Disposition: attachment; filename=aaa.zip	--下载
+Set-Cookie:SS=Q0=5Lb_nQ; path=/search
+Expires: -1					--缓存
+Cache-Control: no-cache  			--缓存
+Pragma: no-cache   				--缓存
+Connection: close/Keep-Alive   			--连接
+Date: Tue, 11 Jul 2000 18:23:51 GMT
